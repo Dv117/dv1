@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Philosophical generator machine♥㨩</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Press Start 2P', cursive;
+      background-color: #1a1a1a; /* Slightly lighter dark for more contrast */
+      color: #e0e0e0; /* Off-white for pixel perfection */
+      max-width: 680px; /* A bit wider for content */
+      margin: auto;
+      padding: 2.5rem; /* More padding */
+      line-height: 1.8;
+      image-rendering: crisp-edges; /* For pixel perfect scaling */
+      image-rendering: pixelated; /* For pixel perfect scaling */
+      cursor: url('data:image/x-icon;base64,AAACAAEAICACAAIAOwAAADsAAAAAAAEAAAEAIAAAAgIAAgAAAAAAgAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAP//AAAA/wAAAP//AAAA/wAAAP//AAAA/wAAAP//AAAA/wAAAP//AAAA/wAAAP//AAAA/wAAAP//AAAA/wAAAP//AAAA/wAAAP//AAAA/wAAAP//AAAA/wAAAP//AAAA/wAAAP//AAAA/wAAAP//AAAA/wAAAP//AAAA/wAAAP//AAAA/wAAAP//AAAA/wAAAP//AAAA/wAAAP//AAAA/wAAAP//AAAA/wAAAP//AAAA/wAAAP//AAAA/wAAAP//AAAA/w=='), auto; /* Pixel cursor */
+    }
+    h1 {
+      font-size: 1.6rem; /* Slightly larger */
+      color: #00ffff; /* Brighter cyan */
+      text-align: center;
+      text-shadow: 2px 2px #005f5f; /* Pixel shadow */
+      margin-bottom: 2rem;
+    }
+    textarea {
+      width: 100%;
+      height: 150px; /* Taller */
+      padding: 1rem;
+      font-size: 0.95rem; /* Slightly larger font */
+      resize: vertical;
+      background-color: #2b2b2b; /* Darker background */
+      color: #00ff00; /* Brighter green text */
+      border: 3px solid #00ffff; /* Thicker, pixelated border */
+      box-shadow: 4px 4px 0px #005f5f; /* 8-bit shadow */
+      outline: none; /* Remove default outline */
+      transition: all 0.1s ease-out; /* Smooth pixel transition */
+    }
+    textarea:focus {
+      border-color: #00ff00; /* Highlight on focus */
+      box-shadow: 4px 4px 0px #005f00;
+    }
+    button {
+      background-color: #00ffff;
+      color: #1a1a1a;
+      font-weight: bold;
+      display: block;
+      padding: 0.8rem 1.5rem; /* Larger padding */
+      margin: 2rem auto; /* More margin */
+      font-size: 1rem; /* Slightly larger font */
+      border: 3px solid #00ff00; /* Thicker border */
+      border-radius: 0; /* No border-radius for pixel look */
+      cursor: pointer;
+      transition: transform 0.1s ease-in-out, background-color 0.1s ease-in-out, color 0.1s ease-in-out;
+      font-family: 'Press Start 2P', cursive;
+      box-shadow: 4px 4px 0px #005f5f; /* 8-bit shadow */
+      outline: none;
+    }
+    button:hover {
+      transform: translate(2px, 2px); /* Pixel press effect */
+      background-color: #00ff00;
+      color: #1a1a1a;
+      box-shadow: 2px 2px 0px #005f00; /* Smaller shadow on hover */
+    }
+    button:active {
+      transform: translate(4px, 4px); /* Full press effect */
+      box-shadow: 0px 0px 0px #005f00; /* Shadow disappears on active */
+    }
+
+    #advice {
+      margin-top: 3rem; /* More space */
+      font-size: 1rem;
+      font-weight: normal;
+      border-left: 5px solid #00ffff; /* Thicker border */
+      padding-left: 1.5rem; /* More padding */
+      min-height: 4rem; /* More space for advice */
+      color: #ffff00; /* Yellow for advice */
+      background-color: #2b2b2b;
+      padding: 1rem 1.5rem;
+      box-shadow: 4px 4px 0px #005f5f; /* Matching shadow */
+      position: relative;
+      overflow: hidden; /* For pseudo-elements */
+    }
+
+    /* ASCII art border for advice box */
+    #advice::before, #advice::after {
+      content: '';
+      position: absolute;
+      background-color: #00ffff;
+    }
+
+    #advice::before {
+      top: -3px; left: -3px; right: -3px; bottom: -3px;
+      z-index: -1;
+      border: 3px dashed #00ffff; /* Dashed effect for retro border */
+    }
+
+    /* Simple scanlines effect */
+    body::after {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: repeating-linear-gradient(
+            to bottom,
+            transparent 0%,
+            rgba(0,0,0,0.1) 1px,
+            transparent 2px
+        );
+        pointer-events: none;
+        z-index: 9999;
+    }
+
+    /* Optional: Small pixel noise overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYGDYDgAABwABqH/T8AAAAABJRU5ErkJggg=='); /* A tiny, transparent pixel */
+      background-repeat: repeat;
+      opacity: 0.05;
+      pointer-events: none;
+      z-index: 9998;
+    }
+  </style>
+</head>
+<body>
+  <h1>💬 Generator machine of [The only way you should chase]</h1>
+  <textarea id="situation" placeholder="What makes you hesitate 𞎍󱂹☃𓔟, overseer?"></textarea>
+  <button id="getAdvice">Receive the only way to follow</button>
+  <div id="advice"></div>
+
+  <script>
+    const philosophies = [
+      {
+        keywords: ["death", "mortality", "loss", "end of life", "dying", "passing away", "ceasing to exist", "expiration", "fatality", "demise", "eternal rest", "grieve", "bereavement", "funeral"],
+        quotes: [
+          "'He who has a why to live can bear almost any how.' – Friedrich Nietzsche",
+          "'To die will be an awfully big adventure.' – J.M. Barrie",
+          "'Death is nothing to us, since when we are, death has not come, and when death has come, we are not.' – Epicurus",
+          "'The fear of death follows from the fear of life.' – Mark Twain",
+          "'Cowards die many times before their deaths; the valiant never taste of death but once.' – William Shakespeare",
+          "'It is not death that a man should fear, but he should fear never beginning to live.' – Marcus Aurelius",
+          "'A man with outward courage dares to die; a man with inner courage dares to live.' – Lao Tzu",
+          "'Life and death are one thread, the same line viewed from different sides.' – Lao Tzu",
+          "'The goal of life is living in agreement with nature.' – Zeno of Citium",
+          "'Do not seek death. Death will find you. But seek the road which makes death a fulfillment.' – Dag Hammarskjöld",
+          "'Our dead are never dead to us until we have forgotten them.' – George Eliot",
+          "'For life and death are one, even as the river and the sea are one.' – Kahlil Gibran",
+          "'The idea is to die young as late as possible.' – Ashley Montagu",
+          "'It is natural to die as to be born.' – Francis Bacon",
+          "'Death is not the opposite of life, but a part of it.' – Haruki Murakami",
+          "'Every man must do two things alone; he must do his own believing and his own dying.' – Martin Luther",
+          "'I am not afraid of death, I just don't want to be there when it happens.' – Woody Allen",
+          "'Death ends a life, not a relationship.' – Mitch Albom",
+          "'The life of the dead is placed in the memory of the living.' – Marcus Tullius Cicero",
+          "'When he died, all things soft and beautiful and bright would be buried with him.' – Madeline Miller",
+          "'The past is a place of reference, not a place of residence.' – Unknown",
+          "'The purpose of life is not to be happy. It is to be useful, to be honorable, to be compassionate, to have it make some difference that you have lived and lived well.' – Ralph Waldo Emerson",
+          "'Only when we are no longer afraid do we begin to live.' – Dorothy Thompson"
+        ]
+      },
+      {
+        keywords: ["grief", "mourning", "sorrow", "bereavement", "heartache", "lament", "emotional pain", "loss of loved one", "depression after loss", "crying over someone", "loss of parent", "grieving friend", "post-loss sadness", "emptiness inside", "sadness", "unhappiness", "despair", "melancholy", "suffering"],
+        quotes: [
+          "'What we have once enjoyed we can never lose. All that we love deeply becomes a part of us.' – Helen Keller",
+          "'Grief is the price we pay for love.' – Queen Elizabeth II",
+          "'The deeper that sorrow carves into your being, the more joy you can contain.' – Kahlil Gibran",
+          "'To weep is to make less the depth of grief.' – William Shakespeare",
+          "'Tears shed for another person are not a sign of weakness. They are a sign of a pure heart.' – José N. Harris",
+          "'No one ever told me that grief felt so like fear.' – C.S. Lewis",
+          "'There is a sacredness in tears. They are not the mark of weakness, but of power.' – Washington Irving",
+          "'Sorrow is one of the vibrations that prove the fact of living.' – Antoine de Saint-Exupéry",
+          "'Grief does not change you, it reveals you.' – John Green",
+          "'Grieving is a journey that teaches us how to love in a new way now that our loved one is no longer with us.' – Tom Attig",
+          "'The reality is that you will grieve forever. You will not “get over” the loss of a loved one.' – Elisabeth Kübler-Ross",
+          "'No matter how prepared you think you are for the death of a loved one, it still comes as a shock.' – Billy Graham",
+          "'Grief is in two parts. The first is loss. The second is the remaking of life.' – Anne Roiphe",
+          "'When someone you love becomes a memory, the memory becomes a treasure.' – Unknown",
+          "'The pain passes, but the beauty remains.' – Pierre Auguste Renoir",
+          "'How lucky I am to have something that makes saying goodbye so hard.' – A.A. Milne",
+          "'You don’t go around grieving all the time, but the grief is still there and always will be.' – Nigella Lawson",
+          "'We must embrace pain and burn it as fuel for our journey.' – Kenji Miyazawa",
+          "'Grief is like the ocean; it comes on waves ebbing and flowing.' – Vicki Harrison",
+          "'Give sorrow words; the grief that does not speak knits up the o-er wrought heart and bids it break.' – Shakespeare",
+          "'The truest indication of a man’s character is how he treats those who can do him no good, and those who cannot respond in kind.' – Abigail Van Buren",
+          "'It is by acts and not by ideas that people live.' – Anatole France"
+        ]
+      },
+      {
+        keywords: ["stress", "anxiety", "worry", "overthinking", "panic", "nervous", "mental pressure", "tense", "burnout", "tight chest", "mind racing", "feeling overwhelmed", "mental storm", "inner chaos", "exhaustion", "fear", "uncertainty", "doubt", "insomnia", "restless"],
+        quotes: [
+          "'It is not things themselves that disturb us, but our opinions about them.' – Epictetus",
+          "'The greatest weapon against stress is our ability to choose one thought over another.' – William James",
+          "'Don't worry about things you have no control over.' – Buddha",
+          "'Rule your mind or it will rule you.' – Horace",
+          "'Anxiety does not empty tomorrow of its sorrows, but only empties today of its strength.' – Charles Spurgeon",
+          "'Do not anticipate trouble, or worry about what may never happen.' – Benjamin Franklin",
+          "'Calm mind brings inner strength and self-confidence.' – Dalai Lama",
+          "'If you are depressed you are living in the past. If you are anxious you are living in the future.' – Lao Tzu",
+          "'The mind that is anxious about future events is miserable.' – Seneca",
+          "'You don’t have to control your thoughts. You just have to stop letting them control you.' – Dan Millman",
+          "'Stress is caused by being “here” but wanting to be “there”.' – Eckhart Tolle",
+          "'A crust eaten in peace is better than a banquet partaken in anxiety.' – Aesop",
+          "'Keep calm and carry on.' – Winston Churchill",
+          "'The time to relax is when you don't have time for it.' – Sydney J. Harris",
+          "'Almost everything will work again if you unplug it for a few minutes, including you.' – Anne Lamott",
+          "'You cannot always control what goes on outside. But you can always control what goes on inside.' – Wayne Dyer",
+          "'It’s not stress that kills us, it is our reaction to it.' – Hans Selye",
+          "'Feelings are just visitors, let them come and go.' – Mooji",
+          "'Sometimes letting things go is an act of far greater power than defending or hanging on.' – Eckhart Tolle",
+          "'Silence is sometimes the best answer.' – Dalai Lama",
+          "'The less you open your heart to others, the more your heart suffers.' – Deepak Chopra",
+          "'The primary cause of unhappiness is never the situation but your thoughts about it.' – Eckhart Tolle"
+        ]
+      },
+      {
+        keywords: ["purpose", "meaning", "life path", "direction", "goals", "vocation", "destiny", "calling", "existential", "aimless", "directionless", "lost"],
+        quotes: [
+          "'The unexamined life is not worth living.' – Socrates",
+          "'Man is condemned to be free.' – Jean-Paul Sartre",
+          "'The only true wisdom is in knowing you know nothing.' – Socrates",
+          "'Knowing yourself is the beginning of all wisdom.' – Aristotle",
+          "'Life must be understood backward. But it must be lived forward.' – Søren Kierkegaard",
+          "'To be yourself in a world that is constantly trying to make you something else is the greatest accomplishment.' – Ralph Waldo Emerson",
+          "'The meaning of life is to find your gift. The purpose of life is to give it away.' – Pablo Picasso",
+          "'Happiness is not something ready made. It comes from your own actions.' – Dalai Lama",
+          "'You will never be happy if you continue to search for what happiness consists of. You will never live if you are looking for the meaning of life.' – Albert Camus",
+          "'The best way to predict the future is to create it.' – Peter Drucker",
+          "'The price of anything is the amount of life you exchange for it.' – Henry David Thoreau",
+          "'We are what we repeatedly do. Excellence, then, is not an act, but a habit.' – Aristotle",
+          "'It is not what happens to you, but how you react to it that matters.' – Epictetus"
+        ]
+      },
+      {
+        keywords: ["happiness", "joy", "contentment", "well-being", "fulfillment", "bliss", "pleasure", "sadness", "unhappy", "satisfaction"],
+        quotes: [
+          "'Happiness depends upon ourselves.' – Aristotle",
+          "'The greatest happiness of life is the conviction that we are loved; loved for ourselves, or rather, loved in spite of ourselves.' – Victor Hugo",
+          "'For every minute you are angry you lose sixty seconds of happiness.' – Ralph Waldo Emerson",
+          "'The most important thing is to enjoy your life – to be happy – it’s all that matters.' – Audrey Hepburn",
+          "'Happiness is not a station you arrive at, but a manner of traveling.' – Margaret Lee Runbeck",
+          "'There is no happiness without a good mind and health.' – Maimonides",
+          "'The only way to do great work is to love what you do.' – Steve Jobs",
+          "'Be happy for this moment. This moment is your life.' – Omar Khayyam",
+          "'True happiness is to enjoy the present, without anxious dependence upon the future.' – Seneca",
+          "'The paradox of our time in history is that we have taller buildings but shorter tempers, wider freeways but narrower viewpoints.' – George Carlin"
+        ]
+      },
+      {
+        keywords: ["change", "transition", "new beginning", "adaptation", "growth", "evolution", "transformation", "uncertainty", "letting go", "moving on", "future"],
+        quotes: [
+          "'The only constant in life is change.' – Heraclitus",
+          "'To improve is to change; to be perfect is to change often.' – Winston Churchill",
+          "'It is not the strongest of the species that survives, nor the most intelligent, but the one most responsive to change.' – Charles Darwin",
+          "'If you do not change direction, you may end up where you are heading.' – Lao Tzu",
+          "'You never change things by fighting the existing reality. To change something, build a new model that makes the existing model obsolete.' – Buckminster Fuller",
+          "'Change is painful, but nothing is as painful as staying stuck somewhere you don't belong.' – Mandy Hale",
+          "'The secret of change is to focus all your energy not on fighting the old, but on building the new.' – Socrates (often attributed to him)",
+          "'Every great dream begins with a dreamer. Always remember, you have within you the strength, the patience, and the passion to reach for the stars to change the world.' – Harriet Tubman"
+        ]
+      },
+      {
+        keywords: ["meaning", "purpose", "existence", "why am I here", "big questions", "philosophy", "truth", "reality", "knowledge"],
+        quotes: [
+          "'The unexamined life is not worth living.' – Socrates",
+          "'The only true wisdom is in knowing you know nothing.' – Socrates",
+          "'Knowing yourself is the beginning of all wisdom.' – Aristotle",
+          "'Life must be understood backward. But it must be lived forward.' – Søren Kierkegaard",
+          "'The true sign of intelligence is not knowledge but imagination.' – Albert Einstein",
+          "'We are what we repeatedly do. Excellence, then, is not an act, but a habit.' – Aristotle",
+          "'It is better to suffer wrong than to do wrong.' – Socrates",
+          "'The function of man is to live, not to exist. I shall not waste my days in trying to prolong them. I shall use my time.' – Jack London"
+        ]
+      }
+      // Add more categories as needed!
+    ];
+
+    const fallbackQuotes = [
+      "'The true secret of happiness lies in taking a genuine interest in all the details of daily life.' – William Morris",
+      "'We cannot solve our problems with the same thinking we used when we created them.' – Albert Einstein",
+      "'The journey of a thousand miles begins with a single step.' – Lao Tzu",
+      "'What is necessary to change a person is to change his awareness of himself.' – Abraham Maslow",
+      "'The best revenge is massive success.' – Frank Sinatra",
+      "'If you want to live a happy life, tie it to a goal, not to people or things.' – Albert Einstein",
+      "'The mind is everything. What you think you become.' – Buddha",
+      "'Challenges are what make life interesting and overcoming them is what makes life meaningful.' – Joshua J. Marine"
+    ];
+
+    const intros = [
+      "From the ancient scrolls, a truth unfolds: ",
+      "Hark, seeker, and ponder this wisdom: ",
+      "The sages whisper: ",
+      "Observe, contemplate, and know: ",
+      "Let this axiom guide your path: ",
+      "A pixelated thought for your digital soul: ",
+      "The console hums with this insight: ",
+      "Hear now, a timeless reflection: "
+    ];
+
+    const noMatchResponses = [
+      "My circuits hum, yet your query eludes the established protocols. Perhaps rephrase, seeker?",
+      "The ancient database holds no immediate match for your current distress. Consider a different perspective.",
+      "Though my wisdom is vast, this particular enigma requires further contemplation. Try another query.",
+      "The cosmic dust settles... and reveals no direct answer. The path forward is yours to illuminate.",
+      "Unrecognized input. The oracle requires clearer instructions, initiate?",
+      "My philosophical processors are computing... and drawing a blank. Is there another way to frame your troubles?"
+    ];
+
+
+    function generatePhilosophicalAdvice(input) {
+      const text = input.toLowerCase().trim();
+
+      if (!text) {
+        return "Enter your question to receive timeless wisdom.";
+      }
+
+      // Score matching philosophies
+      let bestMatch = null;
+      let maxMatches = 0;
+
+      philosophies.forEach(item => {
+        let currentMatches = 0;
+        item.keywords.forEach(keyword => {
+          if (text.includes(keyword)) {
+            currentMatches++;
+          }
+        });
+
+        if (currentMatches > maxMatches) {
+          maxMatches = currentMatches;
+          bestMatch = item;
+        }
+      });
+
+      let chosenQuote;
+      if (bestMatch && maxMatches > 0) {
+        chosenQuote = bestMatch.quotes[Math.floor(Math.random() * bestMatch.quotes.length)];
+        return intros[Math.floor(Math.random() * intros.length)] + chosenQuote;
+      } else {
+        // If no specific category matches, provide a general philosophical quote
+        if (Math.random() < 0.7) { // 70% chance of fallback quote, 30% for "no match" response
+          chosenQuote = fallbackQuotes[Math.floor(Math.random() * fallbackQuotes.length)];
+          return intros[Math.floor(Math.random() * intros.length)] + chosenQuote;
+        } else {
+          return noMatchResponses[Math.floor(Math.random() * noMatchResponses.length)];
+        }
+      }
+    }
+
+    const textarea = document.getElementById("situation");
+    const adviceDiv = document.getElementById("advice");
+    const button = document.getElementById("getAdvice");
+
+    button.addEventListener("click", () => {
+      const input = textarea.value;
+      const advice = generatePhilosophicalAdvice(input);
+      adviceDiv.textContent = advice;
+    });
+
+    // Optional: Clear placeholder on focus, restore if empty on blur
+    textarea.addEventListener("focus", () => {
+      if (textarea.value === "What troubles your mind, seeker?") {
+        textarea.value = "";
+      }
+    });
+
+    textarea.addEventListener("blur", () => {
+      if (textarea.value.trim() === "") {
+        textarea.value = "What troubles your mind, seeker?";
+      }
+    });
+  </script>
+</body>
+</html>
